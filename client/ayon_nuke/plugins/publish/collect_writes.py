@@ -177,6 +177,11 @@ class CollectNukeWrites(pyblish.api.InstancePlugin,
         context_handle_end = instance.context.data["handleEnd"]
 
         # get frame range data
+        root_first_frame = int(nuke.root()["first_frame"].getValue())
+        root_last_frame = int(nuke.root()["last_frame"].getValue())
+        context_handle_start = instance.context.data["handleStart"]
+        context_handle_end = instance.context.data["handleEnd"]
+        
         first_frame, last_frame = self._get_frame_range_data(instance)
         handle_start = max(0, root_first_frame + context_handle_start - first_frame)
         handle_end = max(0, last_frame - (root_last_frame - context_handle_end))
