@@ -171,11 +171,6 @@ class CollectNukeWrites(pyblish.api.InstancePlugin,
         # determine defined channel type
         color_channels = write_node["channels"].value()
 
-        root_first_frame = int(nuke.root()["first_frame"].getValue())
-        root_last_frame = int(nuke.root()["last_frame"].getValue())
-        context_handle_start = instance.context.data["handleStart"]
-        context_handle_end = instance.context.data["handleEnd"]
-
         # get frame range data
         handle_start = instance.context.data["handleStart"]
         handle_end = instance.context.data["handleEnd"]
