@@ -1309,9 +1309,6 @@ def create_write_node(
         requires_gpu_knob = nuke.Boolean_Knob("requires_gpu", "Requires GPU")
         GN.addKnob(requires_gpu_knob)
         requires_gpu_knob.setFlag(nuke.STARTLINE)
-        chunk_size_knob = nuke.Int_Knob("chunk_size", "Chunk Size")
-        GN.addKnob(chunk_size_knob)
-        chunk_size_knob.clearFlag(nuke.STARTLINE)
 
     # set tile color
     tile_color = next(
@@ -1332,10 +1329,8 @@ def create_write_node(
 
 
 def group_node_knob_changed():
-    knob = nuke.thisKnob()
-    knob_name = knob.name()
-
-    if knob_name not in ("requires_gpu", "chunk_size"):
+    requires_gpu_knob = nuke.thisKnob()
+    if requires_gpu_knob.name() != "requires_gpu":
         return
 
     instance_id = get_node_data(nuke.thisNode(), INSTANCE_DATA_KNOB).get("instance_id")
@@ -1352,11 +1347,11 @@ def group_node_knob_changed():
     if not collect_opencue_layer_args:
         return
     
-    value = knob.value()
-    if collect_opencue_layer_args.get(knob_name) == value:
+    requires_gpu = requires_gpu_knob.value()
+    if collect_opencue_layer_args.get("requires_gpu") == requires_gpu:
         return
     
-    collect_opencue_layer_args[knob_name] = value
+    collect_opencue_layer_args["requires_gpu"] = requires_gpu
     create_context.save_changes()
 
 
