@@ -59,7 +59,6 @@ from .lib import (
     dirmap_file_name_filter,
     add_scripts_menu,
     add_scripts_gizmo,
-    group_node_knob_changed,
     get_node_data,
     set_node_data,
     MENU_LABEL,
@@ -199,9 +198,6 @@ def add_nuke_callbacks(project_settings: dict = None):
         log.info("Added Nuke's dir-mapping callback ...")
         # Add dirmap for file paths.
         nuke.addFilenameFilter(dirmap_file_name_filter)
-
-    # add callback for opencue requires gpu knob
-    nuke.addKnobChanged(group_node_knob_changed, nodeClass="Group")
 
     log.info("Added Nuke callbacks ...")
 
